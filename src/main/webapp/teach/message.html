@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="message.js"></script>
+</head>
+
+<body>
+	<a href="my.html">マイページ</a>
+	<a href="sh.html">友達検索</a>
+	<a href="friends.html">友達一覧</a>
+	<br>
+	<a href="login.html">ログイン</a>
+	<br>
+	<hr>
+	<br> チャット画面
+	<br> 履歴：
+	<br>
+	<div id="history"></div>
+	<br> 発信：
+	<input type="text" name="message" id="content">
+	<input type="button" value="送信" id="send">
+	<style>
+#history {
+	width: 300px;
+	height: 300px;
+	border: 1px solid black;
+	overflow: auto;
+}
+</style>
+	<script>
+	window.onload = function () {
+
+	  getMessage();
+	};
+
+
+	setInterval(getMessage, 1000);
+
+	$(function () { 
+		
+		$('#send').on('click', function () {
+			
+		let url = new URL(window.location.href);
+	    let params = url.searchParams;
+	    var to = params.get('email');
+
+
+	    $.ajax({
+	      url: '/weChat/Message',
+	      type: 'POST',
+	      data: {
+			'content': $('#content').val(),
+	        'to': to        
+	      }
+	    })
+	      // Ajaxリクエストが成功した時発動
+	      .done((data) => {
+			
+			getMessage();
+
+			$('#content').val('');
+			
+			
+	      })
+	      
+	  });
+	$('#content').on('keydown', function(e) {
+	        if (e.key === 'Enter') {
+	            e.preventDefault();
+	            $('#send').click();
+	        }
+	   });
+	});
+
+	function getMessage() {
+
+	  let url = new URL(window.location.href);
+	  let params = url.searchParams;
+	  var to = params.get('email');
+
+	  $.ajax({
+	    url: '/weChat/Getmessage', 
+	    type: 'POST',
+	    data: {      
+	      'to': to
+	    }
+	  })
+	    // Ajaxリクエストが成功した時発動
+	    .done((data) => {
+	      $('#history').html(data);
+
+	    })
+	    // Ajaxリクエストが失敗した時発動
+	    .fail((data) => {
+	      $('#history').html(data);
+
+	    })
+	}
+  </script>
+</body>
+
+</html>

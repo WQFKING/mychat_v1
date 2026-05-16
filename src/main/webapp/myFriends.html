@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>好友列表</title>
+
+	<link rel="stylesheet" href="html.css">
+	<script src="js/jquery.min.js"></script>
+	<script src="js/title.js"></script>
+</head>
+<body>
+	<div class="page">
+		<main class="card">
+			<div class="card-header">
+				<h1 class="card-title">好友列表</h1>
+				<p class="card-subtitle">点击好友开始聊天</p>
+			</div>
+			<div class="card-body stack">
+				<ul id="friendList" class="friend-list" aria-label="friend-list">
+					<li class="panel" style="text-align:center; color: rgba(15,23,42,.55);">正在加载好友列表...</li>
+				</ul>
+			</div>
+		</main>
+	</div>
+
+	<script type="text/javascript">
+		$(function () {
+			$.ajax({
+				url: '/wechat/MyFriends',
+				type: 'POST',
+				dataType: 'json',
+				data: {}
+			})
+				.done((res) => {
+					const $list = $('#friendList');
+					$list.empty();
+
+					if (res.message && res.message.length > 0) {
+						$.each(res.message, function (index, email) {
+							const initial = email.charAt(0);
+							const item = `
+								<li>
+									<a href="/wechat/friendChat.html?email=${email}" class="friend-item">
+										<div class="avatar" style="background-color: ${stringToColor(email)}">${initial}</div>
+										<div class="friend-email">${email}</div>
+										<div class="chat-icon">&gt;</div>
+									</a>
+								</li>
+							`;
+							$list.append(item);
+						});
+					} else {
+						$list.append('<li class="panel" style="text-align:center; color: rgba(15,23,42,.55);">还没有好友。</li>');
+					}
+				})
+				.fail(() => {
+					$('#friendList').html('<li class="panel" style="text-align:center; color: rgba(15,23,42,.55);">加载失败，请重试。</li>');
+				});
+		});
+
+		function stringToColor(str) {
+			let hash = 0;
+			for (let i = 0; i < str.length; i++) {
+				hash = str.charCodeAt(i) + ((hash << 5) - hash);
+			}
+			const c = (hash & 0x00FFFFFF).toString(16).toUpperCase();
+			return "#" + "00000".substring(0, 6 - c.length) + c;
+		}
+	</script>
+</body>
+</html>

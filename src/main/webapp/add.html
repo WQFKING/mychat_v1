@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>注册新账号</title>
+	<link rel="stylesheet" href="html.css">
+	<script src="js/jquery.min.js"></script>
+	<script src="js/title.js"></script>
+</head>
+<body>
+	<div class="page">
+		<main class="card">
+			<div class="card-header">
+				<h1 class="card-title">注册新账号</h1>
+				<p class="card-subtitle">Create your account</p>
+			</div>
+			<div class="card-body stack">
+				<table id="tb" aria-label="register-form">
+					<tr>
+						<td class="centerMust" colspan="2">注册</td>
+					</tr>
+					<tr>
+						<td class="label">邮箱</td>
+						<td><input type="email" name="email" id="email" autocomplete="email"></td>
+					</tr>
+					<tr>
+						<td class="label">密码</td>
+						<td><input type="password" name="password" id="password" autocomplete="new-password"></td>
+					</tr>
+					<tr>
+						<td class="label">确认密码</td>
+						<td><input type="password" name="password" id="passwordw" autocomplete="new-password"></td>
+					</tr>
+					<tr>
+						<td colspan="2" class="centerMust">
+							<button class="bt" id="submit" type="button">注册</button>
+						</td>
+					</tr>
+				</table>
+
+				<span id="result"></span>
+				<div class="dv" aria-hidden="true">+</div>
+			</div>
+		</main>
+	</div>
+
+	<script type="text/javascript">
+		$(function () {
+			$('#submit').on('click', function () {
+				const email = $('#email').val();
+				const password = $('#password').val();
+				const passwordw = $('#passwordw').val();
+
+				if (password !== passwordw) {
+					$('#result').html("<span style='color:#ef4444;font-weight:700;'>两次输入的密码不一致。</span>");
+					return;
+				}
+
+				$.ajax({
+					url: '/wechat/Add',
+					type: 'POST',
+					dataType: 'json',
+					data: {
+						'email': email,
+						'password': password,
+						'passwordw': passwordw
+					}
+				})
+					.done((res) => {
+						$('#result').html(res.message);
+						$('#submit').hide();
+						$('input').prop('disabled', true);
+					})
+					.fail((res) => {
+						const data = res.responseJSON || {};
+						if (res.status === 422) {
+							$('#result').html("输入错误：" + (data.message || ""));
+						} else if (res.status === 500) {
+							$('#result').html("系统发生错误，请稍后再试。");
+							console.error("Database/Server Error Details:", data.debug_info);
+						}
+					});
+			});
+		});
+	</script>
+</body>
+</html>

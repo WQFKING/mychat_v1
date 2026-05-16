@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>个人资料</title>
+	<link rel="stylesheet" href="html.css">
+	<script src="js/jquery.min.js"></script>
+	<script src="js/my.js"></script>
+	<script src="js/title.js"></script>
+</head>
+<body>
+	<div class="page">
+		<main class="card">
+			<div class="card-header">
+				<h1 class="card-title">个人资料</h1>
+				<p class="card-subtitle">Update your email / password</p>
+			</div>
+			<div class="card-body stack">
+				<div class="row">
+					<div class="label">邮箱</div>
+					<input type="email" name="new_email" id="email" autocomplete="email">
+				</div>
+
+				<div class="row">
+					<div class="label">密码</div>
+					<input type="password" name="new_password" id="password" autocomplete="new-password">
+				</div>
+
+				<div class="row">
+					<input type="button" value="保存" id="save" class="bt" onclick="save()">
+				</div>
+
+				<span id="res"></span>
+			</div>
+		</main>
+	</div>
+</body>
+</html>

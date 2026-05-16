@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+
+<body>
+	<a href="my.html">マイページ</a>
+	<a href="sh.html">友達検索</a>
+	<a href="friends.html">友達一覧</a>
+	<br>
+	<a href="login.html">ログイン</a>
+	<br>
+	<hr>
+	<br> ユーザー捜索 メールアドレス
+	<input type="email" name="email" id="email">
+
+	<input type="button" value="検索" id="sh">
+	<hr>
+	結果：
+	<span id="res"></span>
+</body>
+
+</html>
+<script>
+	$(function () {
+	  // Ajax button click
+	  $('#sh').on('click', function () {
+	    $.ajax({
+	      url: '/wechat/Sh',
+	      type: 'POST',
+	      data: {
+	        'email': $('#email').val()
+	      }
+	    })
+	      // Ajaxリクエストが成功した時発動
+	      .done((data) => {
+	        $('#res').html(data);
+	        console.log(data);
+	      })
+	      // Ajaxリクエストが失敗した時発動
+	      .fail((data) => {
+	        $('#res').html(data);
+	        console.log(data);
+	      })
+
+	  });
+	});
+
+	function add_Friend() {
+	  var to = $('#to').text();
+	  //console.log(to);
+	  $.ajax({
+	    url: '/wechat/Add_Friend',
+	    type: 'POST',
+	    data: {
+	      'to': to
+	    }
+	  })
+	    .done((data) => {
+	      $('#res').html(data);
+	      alert('友達になりました！');
+	    })
+	    .fail((data) => {
+	      alert('友達になるのに失敗しました。');
+	    });
+	}
+</script>

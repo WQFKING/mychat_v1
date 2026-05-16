@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>用户登录</title>
+	<link rel="stylesheet" href="html.css">
+	<script src="js/jquery.min.js"></script>
+	<script src="js/title.js"></script>
+</head>
+<body>
+	<div class="page">
+		<main class="card">
+			<div class="card-header">
+				<h1 class="card-title">用户登录</h1>
+				<p class="card-subtitle">Sign in to continue</p>
+			</div>
+			<div class="card-body stack">
+				<div id="login-status"></div>
+
+				<table id="tb" aria-label="login-form">
+					<tr>
+						<td class="centerMust" colspan="2">登录</td>
+					</tr>
+					<tr>
+						<td class="label">邮箱</td>
+						<td><input type="email" id="email" autocomplete="email"></td>
+					</tr>
+					<tr>
+						<td class="label">密码</td>
+						<td><input type="password" id="password" autocomplete="current-password"></td>
+					</tr>
+					<tr>
+						<td colspan="2" class="centerMust">
+							<button class="bt" id="submit" type="button">登录</button>
+						</td>
+					</tr>
+				</table>
+
+				<span id="result"></span>
+				<div class="dv" aria-hidden="true">+</div>
+			</div>
+		</main>
+	</div>
+
+	<script type="text/javascript">
+		$(function () {
+			$('#submit').on('click', function () {
+				$.ajax({
+					url: '/wechat/Login',
+					type: 'POST',
+					dataType: 'json',
+					data: {
+						'email': $('#email').val(),
+						'password': $('#password').val(),
+					}
+				})
+					.done((res) => {
+						if (res.status == "success") {
+							$('#result').html(res.message);
+							localStorage.setItem('email', res.email);
+							renderNav();
+							$('#submit').hide();
+						} else {
+							$('#result').html(res.message);
+						}
+					})
+					.fail((res) => {
+						const data = res.responseJSON || {};
+						if (res.status === 422) {
+							$('#result').html("输入错误：" + (data.message || ""));
+						} else if (res.status === 500) {
+							$('#result').html("系统发生错误，请稍后再试。");
+							console.error("Database/Server Error Details:", data.debug_info);
+						} else if (res.status == 401) {
+							$('#result').html("登录失败：" + (data.message || ""));
+						}
+					});
+			});
+
+			const userEmail = localStorage.getItem('email');
+			if (userEmail) {
+				$('#tb').hide();
+				$('#login-status').html(`
+					<div style="padding: 20px; background: rgba(255,255,255,.9); border: 1px solid rgba(2,6,23,.12); border-radius: 12px; text-align: center;">
+						<p>您已登录为 <strong>${userEmail}</strong></p>
+					</div>
+				`);
+			}
+		});
+	</script>
+</body>
+</html>
