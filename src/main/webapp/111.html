@@ -1,0 +1,117 @@
+<meta charset="utf-8">
+<style>
+    a {
+        text-decoration: none;
+        /* 初始状态无下划线 */
+        color: blue;
+    }
+
+    a:hover {
+        text-decoration: underline;
+        /* 悬停时显示下划线 */
+        color: red;
+    }
+</style>
+<a onclick="y()">男</a>
+<a onclick="x()">女</a>
+<br>
+<span id="men">王，李</span>
+<span id="women">蔡</span>
+
+<br><br><br><br><br>
+
+a<input id="a" type="number">
+b<input id="b" type="number">
+<button onclick="s1()">+</button>
+<button onclick="s2()">-</button>
+<button onclick="s3()">*</button>
+<button onclick="s4()">/</button>
+<button onclick="s5()">Σ</button>
+<button onclick="s6()">奇数和</button>
+<p></p>
+结果:<span id="cal"></span>
+
+
+
+
+
+
+<script>
+
+    function s1() {
+        var a = document.getElementById("a").value;
+        var b = document.getElementById("b").value;
+        var cal = document.getElementById("cal");
+        var c = Number(a) + Number(b)
+        cal.innerHTML = c;
+    }
+    function s2() {
+        var a = document.getElementById("a").value;
+        var b = document.getElementById("b").value;
+        var cal = document.getElementById("cal");
+        var c = Number(a) - Number(b)
+        cal.innerHTML = c;
+    }
+    function s3() {
+        var a = document.getElementById("a").value;
+        var b = document.getElementById("b").value;
+        var cal = document.getElementById("cal");
+        var c = Number(a) * Number(b)
+        cal.innerHTML = c;
+    }
+    function s4() {
+        var a = document.getElementById("a").value;
+        var b = document.getElementById("b").value;
+        var cal = document.getElementById("cal");
+        var c = Number(a) / Number(b)
+        cal.innerHTML = c;
+    }
+    function s5() {
+        var a = document.getElementById("a").value;
+        var b = document.getElementById("b").value;
+        var cal = document.getElementById("cal");
+        var res = 0;
+        for (i = Number(a); i <= Number(b); i = i + 1) {
+            res = res + i;
+        }
+
+
+        cal.innerHTML = res;
+    }
+    function s6() {
+        var a = document.getElementById("a").value;
+        var b = document.getElementById("b").value;
+        var cal = document.getElementById("cal");
+        var res = 0;
+        a = Number(a);
+        b = Number(b);
+        for (i = a; i <= b; i = i + 1) {
+            if (i % 2 == 1) {
+                res = res + i;
+            }
+        }
+        cal.innerHTML = res;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    var men = document.getElementById("men")
+    var women = document.getElementById("women")
+    function y() {
+        men.style.display = "block";
+        women.style.display = "none";
+    }
+    function x() {
+        women.style.display = "block";
+        men.style.display = "none";
+    }
+</script>
