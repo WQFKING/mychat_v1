@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>好友聊天</title>
+	<title>チャット</title>
 	<link rel="stylesheet" href="html.css">
 	<script src="js/jquery.min.js"></script>
 	<script src="js/title.js"></script>
@@ -12,16 +12,16 @@
 	<div class="page">
 		<main class="card card-wide">
 			<div class="card-header">
-				<h1 class="card-title">好友聊天</h1>
-				<p class="card-subtitle" id="friendNameDisplay">好友</p>
+				<h1 class="card-title">チャット</h1>
+				<p class="card-subtitle" id="friendNameDisplay">友だち</p>
 			</div>
 
 			<div class="card-body stack">
 				<div id="chatBox" class="panel scroll-panel chat-box" aria-label="chat-messages"></div>
 
 				<div class="panel" style="display:flex; gap:10px; align-items:center;">
-					<input type="text" id="sendBox" placeholder="输入消息...">
-					<button id="send" type="button" style="white-space:nowrap;">发送</button>
+					<input type="text" id="sendBox" placeholder="メッセージを入力...">
+					<button id="send" type="button" style="white-space:nowrap;">送信</button>
 				</div>
 			</div>
 		</main>
@@ -30,7 +30,7 @@
 	<script>
 		const urlParams = new URLSearchParams(window.location.search);
 		const friendEmail = urlParams.get('email');
-		$('#friendNameDisplay').text(friendEmail || "好友");
+		$('#friendNameDisplay').text(friendEmail || "友だち");
 
 		function syncChatbox() {
 			$.ajax({

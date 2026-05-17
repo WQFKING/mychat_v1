@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>注册新账号</title>
+	<title>新規登録</title>
 	<link rel="stylesheet" href="html.css">
 	<script src="js/jquery.min.js"></script>
 	<script src="js/title.js"></script>
@@ -12,29 +12,29 @@
 	<div class="page">
 		<main class="card">
 			<div class="card-header">
-				<h1 class="card-title">注册新账号</h1>
-				<p class="card-subtitle">Create your account</p>
+				<h1 class="card-title">新規登録</h1>
+				<p class="card-subtitle">アカウントを作成します</p>
 			</div>
 			<div class="card-body stack">
 				<table id="tb" aria-label="register-form">
 					<tr>
-						<td class="centerMust" colspan="2">注册</td>
+						<td class="centerMust" colspan="2">新規登録</td>
 					</tr>
 					<tr>
-						<td class="label">邮箱</td>
+						<td class="label">メール</td>
 						<td><input type="email" name="email" id="email" autocomplete="email"></td>
 					</tr>
 					<tr>
-						<td class="label">密码</td>
+						<td class="label">パスワード</td>
 						<td><input type="password" name="password" id="password" autocomplete="new-password"></td>
 					</tr>
 					<tr>
-						<td class="label">确认密码</td>
+						<td class="label">パスワード（確認）</td>
 						<td><input type="password" name="password" id="passwordw" autocomplete="new-password"></td>
 					</tr>
 					<tr>
 						<td colspan="2" class="centerMust">
-							<button class="bt" id="submit" type="button">注册</button>
+							<button class="bt" id="submit" type="button">登録</button>
 						</td>
 					</tr>
 				</table>
@@ -53,7 +53,7 @@
 				const passwordw = $('#passwordw').val();
 
 				if (password !== passwordw) {
-					$('#result').html("<span style='color:#ef4444;font-weight:700;'>两次输入的密码不一致。</span>");
+					$('#result').html("<span style='color:#ef4444;font-weight:700;'>パスワードが一致しません。</span>");
 					return;
 				}
 
@@ -75,9 +75,9 @@
 					.fail((res) => {
 						const data = res.responseJSON || {};
 						if (res.status === 422) {
-							$('#result').html("输入错误：" + (data.message || ""));
+							$('#result').html("入力エラー：" + (data.message || ""));
 						} else if (res.status === 500) {
-							$('#result').html("系统发生错误，请稍后再试。");
+							$('#result').html("システムエラーが発生しました。しばらくしてから再度お試しください。");
 							console.error("Database/Server Error Details:", data.debug_info);
 						}
 					});

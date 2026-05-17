@@ -12,21 +12,21 @@ function renderNav() {
     if (userEmail && userEmail !== 'undefined') {
         $container.html(`
             <div class="user-info">
-                <span class="welcome-text">欢迎回来，<strong>${userEmail}</strong></span>
+                <span class="welcome-text">ようこそ、<strong>${userEmail}</strong></span>
             </div>
             <div class="nav-actions">
-                <a href="${base}my.html">个人资料</a>
-                <a href="${base}myFriendAdd.html">添加好友</a>
-                <a href="${base}myFriends.html">好友列表</a>
-                <a href="${base}friendGroupMessageAdd.html">发布群消息</a>
-                <a href="${base}friendGroupMessage.html">群消息列表</a>
-                <a href="#" id="logout-btn" class="logout-link">退出登录</a>
+                <a href="${base}my.html">プロフィール</a>
+                <a href="${base}myFriendAdd.html">友だち追加</a>
+                <a href="${base}myFriends.html">友だち一覧</a>
+                <a href="${base}friendGroupMessageAdd.html">投稿する</a>
+                <a href="${base}friendGroupMessage.html">投稿一覧</a>
+                <a href="#" id="logout-btn" class="logout-link">ログアウト</a>
             </div>
         `);
     } else {
         $container.html(`
-            <a href="${base}login.html">登录</a>
-            <a href="${base}add.html" class="btn-register">注册新账号</a>
+            <a href="${base}login.html">ログイン</a>
+            <a href="${base}add.html" class="btn-register">新規登録</a>
         `);
     }
 }
@@ -46,7 +46,7 @@ $(function () {
 
     $(document).on('click', '#logout-btn', function (e) {
         e.preventDefault();
-        if (!confirm("确定要退出登录吗？")) return;
+        if (!confirm("ログアウトしますか？")) return;
 
         localStorage.removeItem('email');
         sessionStorage.removeItem('email');

@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>添加好友</title>
+	<title>友だち追加</title>
 	<link rel="stylesheet" href="html.css">
 	<script src="js/jquery.min.js"></script>
 	<script src="js/title.js"></script>
@@ -13,22 +13,22 @@
 	<div class="page">
 		<main class="card">
 			<div class="card-header">
-				<h1 class="card-title">添加好友</h1>
-				<p class="card-subtitle">Search and send a friend request</p>
+				<h1 class="card-title">友だち追加</h1>
+				<p class="card-subtitle">検索して申請を送信します</p>
 			</div>
 
 			<div class="card-body stack">
 				<table id="tb">
 					<tr>
-						<td class="centerMust" colspan="2">添加好友</td>
+						<td class="centerMust" colspan="2">友だち追加</td>
 					</tr>
 					<tr>
-						<td class="label">好友邮箱</td>
+						<td class="label">友だちのメール</td>
 						<td><input type="email" id="friendEmail" autocomplete="email"></td>
 					</tr>
 					<tr>
 						<td colspan="2" class="centerMust">
-							<button class="bt" id="submit" type="button">搜索</button>
+							<button class="bt" id="submit" type="button">検索</button>
 						</td>
 					</tr>
 				</table>
@@ -53,21 +53,21 @@
 					.done((res) => {
 						if (res.message == "success") {
 							$('#friendEmail').prop('readonly', true);
-							$('#result').html("<button id='addFriend' type='button'>添加好友</button>");
+							$('#result').html("<button id='addFriend' type='button'>友だち追加</button>");
 						} else if (res.message == "fail") {
-							$('#result').html("未找到该用户");
+							$('#result').html("ユーザーが見つかりません");
 							$('#friendEmail').prop('readonly', false);
 						}
 					})
 					.fail((res) => {
 						const data = res.responseJSON || {};
 						if (res.status === 422) {
-							$('#result').html("输入错误：" + (data.message || ""));
+							$('#result').html("入力エラー：" + (data.message || ""));
 						} else if (res.status === 500) {
-							$('#result').html("系统发生错误，请稍后再试。");
+							$('#result').html("システムエラーが発生しました。しばらくしてから再度お試しください。");
 							console.error("Database/Server Error Details:", data.debug_info);
 						} else if (res.status == 401) {
-							$('#result').html("认证失败：" + (data.message || ""));
+							$('#result').html("認証に失敗しました：" + (data.message || ""));
 						}
 					});
 			});
@@ -84,7 +84,7 @@
 			})
 				.done((res) => {
 					if (res.status == "success") {
-						$('#result').html("好友申请已发送");
+						$('#result').html("申請を送信しました");
 					} else {
 						$('#result').html(res.message);
 					}

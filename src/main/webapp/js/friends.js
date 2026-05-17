@@ -1,5 +1,5 @@
 /**
- * 好友列表页面的数据加载
+ * 友だち一覧の読み込み
  */
 $(function () {
   $.ajax({
@@ -12,7 +12,7 @@ $(function () {
       console.log(data);
     })
     .fail((data) => {
-      $('#res').html("加载失败，请稍后重试。");
+      $('#res').html("読み込みに失敗しました。しばらくしてから再度お試しください。");
       console.error(data);
     });
 });

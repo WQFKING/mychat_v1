@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>好友列表</title>
+	<title>友だち一覧</title>
 
 	<link rel="stylesheet" href="html.css">
 	<script src="js/jquery.min.js"></script>
@@ -13,12 +13,12 @@
 	<div class="page">
 		<main class="card">
 			<div class="card-header">
-				<h1 class="card-title">好友列表</h1>
-				<p class="card-subtitle">点击好友开始聊天</p>
+				<h1 class="card-title">友だち一覧</h1>
+				<p class="card-subtitle">友だちを選んでチャットを開始</p>
 			</div>
 			<div class="card-body stack">
 				<ul id="friendList" class="friend-list" aria-label="friend-list">
-					<li class="panel" style="text-align:center; color: rgba(15,23,42,.55);">正在加载好友列表...</li>
+					<li class="panel" style="text-align:center; color: rgba(15,23,42,.55);">友だち一覧を読み込み中...</li>
 				</ul>
 			</div>
 		</main>
@@ -51,11 +51,11 @@
 							$list.append(item);
 						});
 					} else {
-						$list.append('<li class="panel" style="text-align:center; color: rgba(15,23,42,.55);">还没有好友。</li>');
+						$list.append('<li class="panel" style="text-align:center; color: rgba(15,23,42,.55);">友だちがいません。</li>');
 					}
 				})
 				.fail(() => {
-					$('#friendList').html('<li class="panel" style="text-align:center; color: rgba(15,23,42,.55);">加载失败，请重试。</li>');
+					$('#friendList').html('<li class="panel" style="text-align:center; color: rgba(15,23,42,.55);">読み込みに失敗しました。もう一度お試しください。</li>');
 				});
 		});
 

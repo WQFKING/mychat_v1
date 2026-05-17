@@ -1,5 +1,5 @@
 /**
- * 个人资料页面的数据加载与保存
+ * プロフィールの読み込み/保存
  */
 
 $(function () {
@@ -15,7 +15,7 @@ $(function () {
                 $("#email").val(str[0]);
                 $("#password").val(str[1]);
             } else {
-                alert("登录失败，请稍后重试。");
+                alert("ログインに失敗しました。しばらくしてから再度お試しください。");
                 setTimeout(function () {
                     window.location.href = "login.html";
                 }, 5000);

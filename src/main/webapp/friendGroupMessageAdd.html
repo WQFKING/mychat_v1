@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>发布群消息</title>
+	<title>投稿する</title>
 	<link rel="stylesheet" href="html.css">
 	<script src="js/jquery.min.js"></script>
 	<script src="js/title.js"></script>
@@ -22,17 +22,17 @@
 	<div class="page">
 		<main class="card">
 			<div class="card-header">
-				<h1 class="card-title">发布群消息</h1>
-				<p class="card-subtitle">Share something with your group</p>
+				<h1 class="card-title">投稿する</h1>
+				<p class="card-subtitle">投稿内容を入力してください</p>
 			</div>
 			<div class="card-body stack">
 				<div class="row">
-					<div class="label">消息内容</div>
-					<textarea id="sendBox" placeholder="写点什么..."></textarea>
+					<div class="label">内容</div>
+					<textarea id="sendBox" placeholder="何か書いてください..."></textarea>
 				</div>
 
 				<div class="row">
-					<button id="send" class="bt" type="button">发布</button>
+					<button id="send" class="bt" type="button">投稿</button>
 				</div>
 
 				<div id="remind"></div>
@@ -46,7 +46,7 @@
 				$('#remind').html(`
 					<div class="alert alert-${type} alert-dismissible fade show" role="alert">
 						${message}
-						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="关闭"></button>
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="閉じる"></button>
 					</div>
 				`);
 
@@ -58,7 +58,7 @@
 			$('#send').on('click', function () {
 				const content = $('#sendBox').val().trim();
 				if (!content) {
-					showRemind("请输入内容。", "warning");
+					showRemind("内容を入力してください。", "warning");
 					return;
 				}
 
@@ -72,11 +72,11 @@
 				})
 					.done((res) => {
 						if (res.status === "success") {
-							showRemind("群消息发布成功。", "success");
+							showRemind("投稿しました。", "success");
 							$('#sendBox').val('');
 						}
 					}).fail(() => {
-						showRemind("发布失败，请稍后重试。", "danger");
+						showRemind("投稿に失敗しました。しばらくしてから再度お試しください。", "danger");
 					});
 			});
 		})
